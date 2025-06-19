@@ -58,6 +58,15 @@ def crear(request):
 
 @login_required 
 def editar(request,id):
+    if request.method == 'POST':
+        
+        elemento = libro.objects.get(id=id)
+        elemento.titulo = request.POST.get("titulo")
+        elemento.descripcion = request.POST.get("descripcion")
+        elemento.precio = request.POST.get("precio")
+        elemento.save()
+        
+        return redirect("/listar")
     elemento = libro.objects.get(id=id)
     return render(request, "editar.html", {"libro": elemento})
 
