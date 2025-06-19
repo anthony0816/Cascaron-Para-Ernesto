@@ -34,13 +34,14 @@ def cerrar_sesion(request):
 def main(request):
     return render(request,"main.html",)
 
+@login_required 
 def listar(request):
     libros = libro.objects.all()
     if libro is not None:
         return render(request,"all_elements.html", {"libros": libros} )
     return render(request,"all_elements.html")
 
-
+@login_required 
 def crear(request):
     if request.method == 'POST':
         titulo = request.POST.get("titulo")
@@ -55,10 +56,12 @@ def crear(request):
         return redirect("/listar")
     return render(request, "crear.html")
 
+@login_required 
 def editar(request,id):
     elemento = libro.objects.get(id=id)
     return render(request, "editar.html", {"libro": elemento})
 
+@login_required 
 def eliminar(request,id):
     elemento = libro.objects.get(id=id)
     elemento.delete()
