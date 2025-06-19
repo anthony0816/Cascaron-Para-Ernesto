@@ -20,7 +20,7 @@ def iniciar_sesion(request):
         user = authenticate(request, username=usuario, password=clave)
         if user is not None:
             login(request, user)
-            return redirect('main')  
+            return redirect('listar')  
         else:
             error = 'Credenciales inválidas'
             return render(request, 'login.html', {'error': error})
