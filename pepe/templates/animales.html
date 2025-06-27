@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+    Clinica
+{%endblock%}
+{% block content %}
+<link rel= "stylesheet" href= "{% static 'listar.css' %}">
+    <table style="margin: auto; margin-top: 50px;">
+        <thead>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Edad</th>
+            <th>Sexo</th>
+            <th>En Adopción</th>
+            
+        </thead>
+        <tbody>
+        {% for x in anm %}
+            <tr>
+                <td>{{x.nombre}}</td>
+                <td>{{x.especie}}</td>
+                <td>{{x.edad}}</td>
+                <td>{{x.sexo}}</td>
+                <td>{{x.disp_adopcion}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <a href="crear.html"><button>Registrar</button></a>
+    </table>
+
+{%endblock%}

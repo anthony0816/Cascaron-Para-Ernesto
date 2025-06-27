@@ -1,65 +1,46 @@
-from django.shortcuts import render
+from .models import Animal
+from django.shortcuts import render, redirect
+from django.contrib.auth import  authenticate, login, logout
 from django.http import HttpResponse
-from  django.contrib.auth.models import User
-from .models import libro
-from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
 
 
+@login_required
+def animales(request):
+    animal = Animal.objects.all()
+    return render(request,"animales.html", {"anm": animal} )
 
 
-# Create your models here.
+def registrar(request):
+    if request.method == "POST":
+        nombre= request.POST.get("nombre"),
+        especie = request.POST.get("especie"),
+        edad = request.POST.get("edad"),
+        sexo = request.POST.get("sexo"),
+        disp_adopcion = request.POST.get("En adopcion")
 
-
-
-def iniciar_sesion(request):
-    if request.method == 'POST':
-        usuario = request.POST['nombre']
-        clave = request.POST['password']
-        user = authenticate(request, username=usuario, password=clave)
-        if user is not None:
-            login(request, user)
-            return redirect('listar')  
-        else:
-            error = 'Credenciales inválidas'
-            return render(request, 'login.html', {'error': error})
-    return render(request, 'login.html')
-
-def cerrar_sesion(request):
-    logout(request)
-    return redirect("/")
-
-@login_required 
-def main(request):
-    return render(request,"main.html",)
-
-def listar(request):
-    libros = libro.objects.all()
-    if libro is not None:
-        return render(request,"all_elements.html", {"libros": libros} )
-    return render(request,"all_elements.html")
-
-
-def crear(request):
-    if request.method == 'POST':
-        titulo = request.POST.get("titulo")
-        descripcion = request.POST.get("descripcion")
-        precio = request.POST.get("precio")
-        
-        libro.objects.create(
-            titulo = titulo,
-            descripcion = descripcion,
-            precio = precio
+        anm= Animal.objects.create(
+            nombre,
+            especie,
+            edad,
+            sexo,
+            disp_adopcion,
         )
-        return redirect("/listar")
-    return render(request, "crear.html")
+        
+        return redirect("registrar/")
+    return render(request,"crear.html")
 
-def editar(request,id):
-    elemento = libro.objects.get(id=id)
-    return render(request, "editar.html", {"libro": elemento})
 
-def eliminar(request,id):
-    elemento = libro.objects.get(id=id)
-    elemento.delete()
-    return redirect("/listar")
+def iniciar(request):
+    nombre =  request.POST["username"]
+    contraseña = request.POST["password"]
+    user = authenticate(request, username=nombre, password = contraseña)
+    if user is not None:
+        login(request, user)
+        return redirect("animales/")
+    else:
+        return HttpResponse("Error")
+    
+def desloguear(request):
+    logout(request)
+    return render(request, "login/")

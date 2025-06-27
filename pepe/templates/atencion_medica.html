@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+    Main
+{%endblock%}
+{% block content %}
+<link rel="stylesheet" href="{static 'listar.css'}">
+    <table style="margin: auto; margin-top: 50px;">
+        <thead>
+            <th>Tipo</th>
+            <th>Animal</th>
+            <th>Veterinario</th>
+            <th>Fecha</th>
+            
+        </thead>
+        <tbody>
+            {% for x in atm %}
+            <tr>
+                <td>{{x.tipo}}</td>
+                <td>{{x.animal}}</td>
+                <td>{{x.veterinario}}</td>
+                <td>{{x.fecha}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{%endblock%}
