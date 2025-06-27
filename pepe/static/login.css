@@ -66,13 +66,7 @@
     transform: translateY(1px);
 }
 
-/* Estilos para pantallas pequeñas */
-@media (max-width: 480px) {
-    .auth-form {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-}
+
 
 .error{
     color: red;

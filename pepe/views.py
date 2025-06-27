@@ -1,16 +1,25 @@
-from django.shortcuts import render
+from .models import Animal
+from django.shortcuts import render, redirect
+from django.contrib.auth import  authenticate, login, logout
 from django.http import HttpResponse
-from  django.contrib.auth.models import User
-from .models import libro
-from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
 
 
+@login_required
+def animales(request):
+    animal = Animal.objects.all()
+    return render(request,"animales.html", {"anm": animal} )
 
 
-# Create your models here.
+def registrar(request):
+    if request.method == "POST":
+        nombre= request.POST.get("nombre"),
+        especie = request.POST.get("especie"),
+        edad = request.POST.get("edad"),
+        sexo = request.POST.get("sexo"),
+        disp_adopcion = request.POST.get("En adopcion")
 
+<<<<<<< HEAD
 
 
 def iniciar_sesion(request):
@@ -52,10 +61,20 @@ def crear(request):
             titulo = titulo,
             descripcion = descripcion,
             precio = precio
+=======
+        anm= Animal.objects.create(
+            nombre,
+            especie,
+            edad,
+            sexo,
+            disp_adopcion,
+>>>>>>> 348ed930c90c654e826a042a0beb0438ff344381
         )
-        return redirect("/listar")
-    return render(request, "crear.html")
+        
+        return redirect("registrar/")
+    return render(request,"crear.html")
 
+<<<<<<< HEAD
 @login_required 
 def editar(request,id):
     if request.method == 'POST':
@@ -75,3 +94,19 @@ def eliminar(request,id):
     elemento = libro.objects.get(id=id)
     elemento.delete()
     return redirect("/listar")
+=======
+
+def iniciar(request):
+    nombre =  request.POST["username"]
+    contraseña = request.POST["password"]
+    user = authenticate(request, username=nombre, password = contraseña)
+    if user is not None:
+        login(request, user)
+        return redirect("animales/")
+    else:
+        return HttpResponse("Error")
+    
+def desloguear(request):
+    logout(request)
+    return render(request, "login/")
+>>>>>>> 348ed930c90c654e826a042a0beb0438ff344381

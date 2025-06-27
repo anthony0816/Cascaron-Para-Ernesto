@@ -1,26 +1,17 @@
 
     {% load static %}
     
-<link rel="stylesheet" href="{% static 'navbar.css' %}">
+<link rel= "stylesheet" href= "{% static 'navbar.css' %}">
     <nav class="navbar" >
         <div class="logo">LOGO</div>
         
         <div class="menu-toggle">☰</div>
         
         <ul class="nav-links">
-            <li><a href="/listar">Listar</a></li>
-            <li><a href="/crear">crear</a></li>
-            <li><a href="#">Elemento</a></li>
-            <li><a href="#">Elemento</a></li>
+            <li><a href="/ListaTrNoDocente/" >Consulta</a></li>
+            <li><a href="/ListaTrDocente/">Vacunacion</a></li>
+            <li><a href="/animales/">Animales</a></li>
         </ul>
-        
-        <a class="login-btn" href="/logout">Cerrar Sesión</a>
     </nav>
 
-    <script>
-        // Solo para mostrar/ocultar el menú en móvil (parte de la maqueta)
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-    </script>
 

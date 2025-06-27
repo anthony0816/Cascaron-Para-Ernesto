@@ -1,12 +1,9 @@
-from pepe import views
 from django.urls import path
+from pepe import views
 
-urlpatterns= [
-    path("main/", views.main, name = "main" ),
-    path("", views.iniciar_sesion, name= "iniciar_sesion"),
-    path("logout/", views.cerrar_sesion, name="cerrar_sesion"),
-    path('listar/', views.listar, name='listar'),
-    path("crear/", views.crear, name = "crear"),
-    path("editar/<int:id>/" , views.editar, name = "editar"),
-    path("eliminar/<int:id>/", views.eliminar, name ="eliminar")
+
+urlpatterns = [
+    path("animales/",views.animales ,name="animales"),
+    path("registrar/",views.registrar,name="registrar"),
+    path("login/", views.iniciar, name="iniciar"),
 ]
